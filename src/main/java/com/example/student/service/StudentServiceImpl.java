@@ -3,6 +3,7 @@ package com.example.student.service;
 import com.example.student.model.Student;
 import com.example.student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +28,8 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public List<Student> search(String name){
+    public List<Student> search(String address){
 
-        return studentRepository.findByName(name);
+        return studentRepository.findByAddress(address);
     }
 }

@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:63342")
 @RequestMapping("/student")
 public class StudentController {
     @Autowired
     private StudentService studentService;
+
 
     @PostMapping("/add")
     public String add(@RequestBody Student student){
@@ -24,8 +26,8 @@ public class StudentController {
         return studentService.getAllStudent();
     }
 
-    @PostMapping ("/search")
-    public List<Student> search(@RequestBody String name){
-        return studentService.search(name);
+    @GetMapping ("/search")
+    public List<Student> search(@RequestParam String address){
+        return studentService.search(address);
     }
 }

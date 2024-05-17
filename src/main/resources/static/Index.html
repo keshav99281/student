@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Form</title>
+</head>
+<body>
+    <h3>Student Form</h3>
+
+    <form id="studentForm">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="address">Address:</label><br>
+        <input type="text" id="address" name="address"><br>
+        <label for="email">Email:</label><br>
+        <input type="text" id="email" name="email"><br>
+        <input type="submit" value="Submit">
+    </form>
+    <button id="gdata">Get All The Data</button>
+    <script>
+        document.getElementById('gdata').addEventListener('click',function(){
+          fetch('http://localhost:8080/student/getAll').then(function(response) {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(function(data) {
+              var resultDiv = document.getElementById('result');
+              resultDiv.innerHTML = '';
+              data.forEach(function(student) {
+                var studentDiv = document.createElement('div');
+                studentDiv.textContent = 'Name: ' + student.name + ', Address: ' + student.address + ', Email: ' + student.email;
+                resultDiv.appendChild(studentDiv);
+              });
+            })
+            .catch(function(error) {
+              console.error('There was an error:', error);
+              });
+             });
+    </script>
+    <script>
+        document.getElementById('studentForm').addEventListener('submit', function(event) {
+          event.preventDefault();
+
+          var name = document.getElementById('name').value;
+          var address = document.getElementById('address').value;
+          var email = document.getElementById('email').value;
+
+          var student = {name: name, address: address, email: email};
+
+          fetch('http://localhost:8080/student/add', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(student)
+          }).then(function(response) {
+            return response.text();
+          }).then(function(text) {
+            console.log('Server response:', text);
+            document.getElementById('name').value = '';
+            document.getElementById('address').value = '';
+            document.getElementById('email').value = '';
+            alert('Data successfully submitted');
+          }).catch(function(error) {
+            console.error('There was an error:', error);
+          });
+        });
+    </script>
+</body>
+</html>
