@@ -16,7 +16,7 @@
         <input type="text" id="email" name="email"><br>
         <input type="submit" value="Submit">
     </form>
-    <button id="gdata">Get All The Data</button>
+    <button id="gdata">Get All Data</button>
     <script>
         document.getElementById('gdata').addEventListener('click',function(){
           fetch('http://localhost:8080/student/getAll').then(function(response) {
