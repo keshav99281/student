@@ -1,0 +1,9 @@
+This project is related to a simple form project which accepts name, e-mail and address and it uses 3 api's created using SpringBoot.
+Stacks Used are:
+->JPA
+->MySql
+APIs are:
+->/getAll
+->/add
+->/search
+When the submit button is clicked the output is provided in json format on port 8080.As it moves on tomcat server.
